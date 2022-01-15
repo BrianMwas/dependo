@@ -15,53 +15,55 @@ class _HomeState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Users And Pets",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w700,
-                fontSize: 24,
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Users And Pets",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 24,
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: 10,
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: InkWell(
-                        onTap: () {
-                          context.pushRoute(PetsListRoute(userId: '345'));
-                        },
-                        child: Card(
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration:
-                                const BoxDecoration(color: Colors.white),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Peter Pan"),
-                                  SizedBox(height: 10),
-                                  Text("Simple thing about what I love"),
-                                ]),
+              SizedBox(height: 20),
+              Expanded(
+                child: ListView.builder(
+                    itemCount: 10,
+                    physics: BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: InkWell(
+                          onTap: () {
+                            context.pushRoute(PetsListRoute(userId: '345'));
+                          },
+                          child: Card(
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration:
+                                  const BoxDecoration(color: Colors.white),
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Peter Pan"),
+                                    SizedBox(height: 10),
+                                    Text("Simple thing about what I love"),
+                                  ]),
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }),
-            ),
-          ],
+                      );
+                    }),
+              ),
+            ],
+          ),
         ),
       ),
     );
