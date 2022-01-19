@@ -1,0 +1,4 @@
+- name: Flutter Runner
+  # You may pin to the exact commit or the version.
+  # uses: jddeep/Flutter-Runner@56254d611d8b799e297ab6f81ab4ec5dd0d128a2
+  uses: jddeep/Flutter-Runner@1.2.0
