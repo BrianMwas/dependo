@@ -4,29 +4,30 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+import 'package:cloud_firestore/cloud_firestore.dart' as _i4;
+import 'package:firebase_auth/firebase_auth.dart' as _i3;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import 'data/repository/i_pets_repository.dart' as _i3;
-import 'data/repository/i_user_repository.dart' as _i5;
-import 'data/repository/impl/pets_repository.dart' as _i4;
-import 'data/repository/impl/users_repository.dart' as _i6;
-import 'ui/application/pets/pets_details/pets_details_bloc.dart' as _i7;
-import 'ui/application/user_detail/user_detail_bloc.dart' as _i8;
-import 'ui/application/users/user_list_bloc.dart'
-    as _i9; // ignore_for_file: unnecessary_lambdas
+import 'data/repository/i_auth_facade.dart' as _i6;
+import 'data/repository/impl/auth_facade.dart' as _i7;
+import 'ui/services/app.module.dart' as _i8;
+import 'ui/services/firebase.service.dart'
+    as _i5; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
-_i1.GetIt $initGetIt(_i1.GetIt get,
-    {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
+Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
+    {String? environment, _i2.EnvironmentFilter? environmentFilter}) async {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
-  gh.lazySingleton<_i3.IPetsFacade>(() => _i4.PetFacade());
-  gh.lazySingleton<_i5.IUsersFacade>(() => _i6.UserFacade());
-  gh.factory<_i7.PetsDetailsBloc>(
-      () => _i7.PetsDetailsBloc(get<_i3.IPetsFacade>()));
-  gh.factory<_i8.UserDetailBloc>(
-      () => _i8.UserDetailBloc(get<_i5.IUsersFacade>()));
-  gh.factory<_i9.UserListBloc>(() => _i9.UserListBloc(get<_i5.IUsersFacade>()));
+  final appModule = _$AppModule();
+  gh.factory<_i3.FirebaseAuth>(() => appModule.auth);
+  gh.factory<_i4.FirebaseFirestore>(() => appModule.store);
+  await gh.factoryAsync<_i5.FirebaseService>(() => appModule.fireService,
+      preResolve: true);
+  gh.factory<_i6.IAuthFacade>(() =>
+      _i7.AuthFacade(get<_i3.FirebaseAuth>(), get<_i4.FirebaseFirestore>()));
   return get;
 }
+
+class _$AppModule extends _i8.AppModule {}

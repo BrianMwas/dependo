@@ -1,20 +1,16 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dependo/ui/pages/home.dart';
-import 'package:dependo/ui/pages/pets_details.dart';
-import 'package:dependo/ui/pages/pets_list.dart';
+import 'package:dependo/ui/pages/login_page.dart';
+import 'package:dependo/ui/pages/registration_page.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: [
     AutoRoute(
-      page: HomePage,
+      page: RegistrationPage,
       initial: true,
     ),
     AutoRoute(
-      page: PetDetailsPage,
-    ),
-    AutoRoute(
-      page: PetsListPage
+      page: LoginPage
     ),
   ],
 )

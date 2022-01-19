@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dependo">
-    <!-- Flutter needs it to communicate with the running application
+    <!-- Flutter needs it to communicate with the running bloc
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
