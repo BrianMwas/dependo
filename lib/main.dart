@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'ui/routing/router.gr.dart';
 import 'injection.dart';
 import 'ui/routing/router.gr.dart';
 
