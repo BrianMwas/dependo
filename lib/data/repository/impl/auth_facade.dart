@@ -4,6 +4,8 @@ import 'package:dependo/data/repository/i_auth_facade.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../result.model.dart';
+
 @Injectable(as: IAuthFacade)
 class AuthFacade implements IAuthFacade {
   final FirebaseAuth _firebaseAuth;
@@ -23,17 +25,26 @@ class AuthFacade implements IAuthFacade {
   }
 
   @override
-  Future<void> register({required String username, required String email, required String password}) {
-      return _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) async {
-            return _firebaseFirestore.doc("users/${value.user!.uid}")
-        .set({"email": email, "username": username});
-      });
+  Future<Result> register({required String username, required String email, required String password}) async {
+     try {
+      final data = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      await _firebaseFirestore.doc("users/${data.user!.uid}")
+          .set({"email": email, "username": username});
+      return Success(true);
+     } on FirebaseAuthException catch(error) {
+       return Error(error.message!);
+     }
   }
 
   @override
-  Future<void> signIn({required String email, required String password}) {
-    return _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+  Future<Result> signIn({required String email, required String password}) async {
+    try {
+      final data = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      final userDoc = await _firebaseFirestore.collection("users").doc(data.user!.uid).snapshots().first;
+      return Success<u.User>(userDoc.toUser());
+    } on FirebaseAuthException catch (e) {
+      return Error(e.message!);
+    }
   }
 
   @override
