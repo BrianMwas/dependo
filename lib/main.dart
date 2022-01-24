@@ -10,7 +10,7 @@ void main() async {
 }
 
 class Dependo extends StatelessWidget {
-  final _appRouter = AppRouter();
+  final _appRouter = locator<AppRouter>();
 
   @override
   Widget build(BuildContext context) {

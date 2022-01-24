@@ -1,8 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:dependo/ui/bloc/login/login_form_bloc.dart';
 import 'package:flutter/gestures.dart';
 import 'package:dependo/ui/routing/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../injection.dart';
 
 
 class LoginPage extends StatelessWidget {
@@ -10,7 +13,9 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocProvider(
+        create: (context) => locator<LoginFormBloc>(),
+        child: Scaffold(
       body: SafeArea(child: SingleChildScrollView(
         child: Padding(padding: const EdgeInsets.all(16),
         child: Column(
@@ -101,6 +106,7 @@ class LoginPage extends StatelessWidget {
           ],
         ),)
       ))
+    ),
     );
   }
 }

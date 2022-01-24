@@ -1,7 +1,9 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dependo/ui/routing/router.gr.dart';
 import 'package:dependo/ui/services/firebase.service.dart';
+import 'package:dependo/ui/services/notification.service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
@@ -16,4 +18,10 @@ abstract class AppModule {
 
   @injectable
   FirebaseAuth get auth => FirebaseAuth.instance;
+
+  @injectable
+  AppRouter get appRouter => AppRouter();
+
+  @preResolve
+  Future<NotificationService> get notificationService async => await NotificationService.init();
 }
