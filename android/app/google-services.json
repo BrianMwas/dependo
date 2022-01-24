@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "741685687925",
+    "project_id": "dependo-d8aab",
+    "storage_bucket": "dependo-d8aab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741685687925:android:ed4a765ded57e853152a3c",
+        "android_client_info": {
+          "package_name": "com.example.dependo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741685687925-g2h8elhk1qg9mvmh0694n48u03rus17p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGAayN6O1l1gvmlouI8X91hxKL1FPYhCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741685687925-g2h8elhk1qg9mvmh0694n48u03rus17p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
