@@ -13,47 +13,27 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
 
   LoginFormBloc(this.authFacade) : super(LoginFormInitial()) {
     on<EmailChanged>((event, emit) {
-      emit(
-        LoginFormData(email: event.email)
-      );
+      emit(LoginFormData(email: event.email, password: state.password));
     });
 
     on<PasswordChanged>((event, emit) {
-      emit(LoginFormData(
-        password: event.password,
-      ),);
+      emit(LoginFormData(password: event.password, email: state.email));
     });
 
     on<LoginButtonPressed>((event, emit) async {
       final currentState = state as LoginFormData;
 
-      emit(
-        LoginFormData(
-            email: currentState.email,
-            isSubmitting: true,
-            password: currentState.password,
-            showErrors: false,
-            errors: [],
-        )
+      emit(LoginLoading());
+      final Result data = await authFacade.signIn(
+          email: currentState.email!, password: currentState.password!);
 
-      );
-      final Result data = await authFacade.signIn(email: currentState.email!, password: currentState.password!);
-
-      if(data is Error) {
+      if (data is Error) {
         emit(
-          LoginFormData(
-            isSubmitting: false,
-            showErrors: true,
-            errors: [data.error]
-          ),
+          ShowLoginErrors(showErrors: true, errors: [data.error]),
         );
       }
 
-      emit(
-        LoginFormData(
-          name: (data as Success).data
-        )
-      );
+      emit(LoadingSuccessful(name: "Successful"));
     });
   }
 }

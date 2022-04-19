@@ -1,44 +1,51 @@
 part of 'registration_form_bloc.dart';
 
-abstract class RegistrationFormState extends Equatable {
-  const RegistrationFormState();
+class RegistrationFormState extends Equatable {
+  final String? username;
+  final String? email;
+  final String? password;
+  final bool? isSubmitting;
+  final List<String>? errors;
+
+  RegistrationFormState({
+    this.username,
+    this.email,
+    this.password,
+    this.isSubmitting,
+    this.errors,
+  });
+
+  @override
+  List<Object?> get props => [username, email, password, isSubmitting, errors];
 }
 
 class RegistrationFormInitial extends RegistrationFormState {
-  @override
-  List<Object> get props => [];
+  RegistrationFormInitial()
+      : super(
+            email: "",
+            password: "",
+            username: "",
+            isSubmitting: false,
+            errors: List.empty());
 }
 
 class Loading extends RegistrationFormState {
-  @override
-  List<Object> get props => [];
+  Loading() : super(isSubmitting: true);
 }
 
-class ShowErrors extends RegistrationFormState {
-  final bool showErrors;
-
-  ShowErrors(this.showErrors);
-
-  @override
-  List<Object> get props => [this.showErrors];
-}
-
-class RegistrationFailed extends RegistrationFormState {
-  final String error;
-
-  RegistrationFailed({required this.error});
-
-  @override
-  List<Object> get props => [this.error];
+class ShowRegistrationErrors extends RegistrationFormState {
+  final List<String> errors;
+  ShowRegistrationErrors({required this.errors}) : super(errors: errors);
 }
 
 class RegistrationData extends RegistrationFormState {
-  final String email;
-  final String username;
-  final String password;
+  final String? email;
+  final String? username;
+  final String? password;
 
-  RegistrationData({required this.email, required this.username, required this.password, });
-
-  @override
-  List<Object> get props => [this.email, this.username, this.password];
+  RegistrationData({
+    this.email,
+    this.username,
+    this.password,
+  }) : super(email: email, password: password, username: username);
 }
